@@ -1,18 +1,24 @@
 {
-  "name": "28-Stu_Mini-Project",
-  "version": "1.0.1",
-  "description": "Mongoose back-end project - Develop",
+  "name": "module18challenge",
+  "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "license": "MIT",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index",
-    "seed": "node utils/seed",
-    "heroku-postbuild": "node utils/seed.js"
+    "test": "node index.js",
+    "dev": "nodemon index.js",
+    "seed": "node utils/seed"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ConstantMotion1/Module18Challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^6.0.13"
+    "mongoose": "^6.0.13",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.9"

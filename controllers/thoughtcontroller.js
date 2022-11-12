@@ -28,6 +28,69 @@ const thoughtController = {
   },
 
   // PUT to update a thought by its _id
+  updateThought(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((thought) =>
+        !thought
+          ? res.status(400).json({ message: 'No thought with that ID found' })
+          : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 
   // Delete to remove a thought by its _id
+
+  deleteThought(req, res) {
+    Thought.findOneAndRemove({ _d: req.parms.thoughtId })
+      .then((thought) =>
+        !thought
+          ? res.status(400).json({ message: 'No thought with that ID found' })
+          : User.findOneAndUpdate(
+              { thoughts: req.params.thoughtId },
+              { $pull: { thoughts: req.params.thoughtId } },
+              { new: true }
+            )
+      )
+      .then(() => res.json({ message: 'Thought deleted!' }))
+      .catch((err) => res.status(500).json(err));
+  },
+
+  // Add reaction
+
+  addReaction(req, res) {
+    console.log('You are adding a reaction');
+    console.log(req.body);
+    Reaction.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body.reactions } },
+      { runValidators: true, new: true }
+    )
+
+      .then((reaction) =>
+        !reactions
+          ? res.status(400).jason({ message: 'No reaction found with that ID' })
+          : res.json(reaction)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+
+  // Delete reaction
+
+  deleteReaction(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { reactions: req.params.reactionId } },
+      { runValidators: true, new: true }
+    )
+      .then((reaction) =>
+        !reaction
+          ? res.status(400).json({ message: 'No reaction found with that ID' })
+          : res.json(reaction)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 };
