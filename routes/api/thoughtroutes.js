@@ -1,9 +1,16 @@
-const { userroutes } = require('../models');
+const router = require('express').Router();
 
-const thoughtroutes = {
-  getAllpost(req,res) {
-    thought.find({}).populate({
-      path: 
-    })
-  }
-}
+const {
+  addThought,
+  removeThought,
+  addReaction,
+  deleteReaction,
+} = require('../controllers/thoughtcontroller');
+
+router.route('/:userId').post(postThought);
+
+router.route('/:userId').put(addReaction).delete(removeThought);
+
+router.route('/:userId/:thoughtId/:reactionId').delete(deleteReaction);
+
+module.exports = router;
