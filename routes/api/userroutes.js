@@ -6,7 +6,7 @@ const {
   postNewuser,
   deleteUser,
   addReaction,
-} = require('../controllers/usercontroller');
+} = require('../../controllers/usercontroller');
 
 router.route('/').get(getAlluser).post(postNewuser);
 
