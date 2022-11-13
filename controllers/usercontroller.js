@@ -46,16 +46,16 @@ const userController = {
   addFriend(req, res) {
     console.log('You are adding a friend');
     console.log(req.body);
-    Friend.findOneAndUpdate(
-      { _id: req.params.thoughtId },
-      { $addToSet: { friends: req.body.friend } },
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
 
-      .then((friend) =>
+      .then((friends) =>
         !friends
           ? res.status(400).json({ message: 'No friends found with that ID' })
-          : res.json(friend)
+          : res.json(friends)
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -63,15 +63,15 @@ const userController = {
   // Delete Friend
 
   deleteFriend(req, res) {
-    Friend.findOneAndUpdate(
+    User.findOneAndUpdate(
       { _id: req.params.userId },
       { $pull: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
-      .then((friend) =>
-        !friend
+      .then((friends) =>
+        !friends
           ? res.status(400).json({ message: 'No friend found with that ID' })
-          : res.json(friend)
+          : res.json(friends)
       )
       .catch((err) => res.status(500).json(err));
   },

@@ -2,10 +2,6 @@ const { Schema, model } = require('mongoose');
 const express = require('express');
 
 const ReactionsSchema = new Schema({
-  reactionId: {
-    type: Schema.Types.ObjectId,
-    ref: 'ObjectId',
-  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -22,11 +18,6 @@ const ReactionsSchema = new Schema({
   username: {
     type: String,
     required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
   },
 });
 

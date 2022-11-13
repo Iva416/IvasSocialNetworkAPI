@@ -55,14 +55,14 @@ const thoughtController = {
   addReaction(req, res) {
     console.log('You are adding a reaction');
     console.log(req.body);
-    Reaction.findOneAndUpdate(
+    Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $addToSet: { reactions: req.body.reactions } },
+      { $addToSet: { reactions: req.body } },
       { runValidators: true, new: true }
     )
 
       .then((reaction) =>
-        !reactions
+        !reaction
           ? res.status(400).jason({ message: 'No reaction found with that ID' })
           : res.json(reaction)
       )
@@ -72,8 +72,8 @@ const thoughtController = {
   // Delete reaction
 
   deleteReaction(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
       { $pull: { reactions: req.params.reactionId } },
       { runValidators: true, new: true }
     )
