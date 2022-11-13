@@ -4,7 +4,7 @@ const { Thought, User } = require('../models');
 const thoughtController = {
   getAllthoughts(req, res) {
     Thought.find()
-      .then((thoughts) => res.json(thoughts))
+      .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
 
@@ -15,16 +15,16 @@ const thoughtController = {
       .then((thought) =>
         !thought
           ? res.status(400).json({ message: 'No thought with that ID found' })
-          : res.json(user)
+          : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
   },
 
   // Post to create new thought (push the created thought's id to the users thoughts array field)
   postThought(req, res) {
-    Thought.create(body)
+    Thought.create(req.body)
       .then({ _id: { $push: User.thoughts } })
-      .then((dbUserData) => res.status(500).json(err));
+      .then((thought) => res.status(500).json(thought));
   },
 
   // PUT to update a thought by its _id
@@ -45,18 +45,9 @@ const thoughtController = {
   // Delete to remove a thought by its _id
 
   deleteThought(req, res) {
-    Thought.findOneAndRemove({ _d: req.parms.thoughtId })
-      .then((thought) =>
-        !thought
-          ? res.status(400).json({ message: 'No thought with that ID found' })
-          : User.findOneAndUpdate(
-              { thoughts: req.params.thoughtId },
-              { $pull: { thoughts: req.params.thoughtId } },
-              { new: true }
-            )
-      )
-      .then(() => res.json({ message: 'Thought deleted!' }))
-      .catch((err) => res.status(500).json(err));
+    Thought.findOneAndDelete({ _id: req.params.thoughtId })
+      .then((Thought) => res.json(Thought))
+      .catch((err) => res.json(err));
   },
 
   // Add reaction
@@ -94,3 +85,5 @@ const thoughtController = {
       .catch((err) => res.status(500).json(err));
   },
 };
+
+module.exports = thoughtController;

@@ -6,6 +6,14 @@ const ReactionsSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'ObjectId',
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (v) => {
+      const date = new Date(v);
+      return date.toLocaleString();
+    },
+  },
   reactionBody: {
     type: String,
     required: true,
@@ -22,4 +30,4 @@ const ReactionsSchema = new Schema({
   },
 });
 
-module.exports = Reactions.js;
+module.exports = ReactionsSchema;
